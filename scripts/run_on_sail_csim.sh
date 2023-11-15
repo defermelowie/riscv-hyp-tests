@@ -6,7 +6,6 @@
 csim=../sail-riscv/c_emulator/riscv_sim_RV64;
 
 # Build tests
-make clean;
 export PLAT=sail LOG_LEVEL=LOG_WARNING;
 make
 

@@ -3,7 +3,6 @@
 # Assumes spike is in PATH
 
 # Build tests
-make clean
 export PLAT=spike LOG_LEVEL=LOG_WARNING
 make
 
