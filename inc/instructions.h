@@ -235,6 +235,7 @@ STORE_INSTRUCTION(sd, "sd", uint64_t);
  * so we have to make sure.
  */
 
+#ifdef __riscv_compressed
 static inline uint64_t c_lw(uintptr_t addr){
     register uint64_t _addr asm("a0") = addr;
     register uint64_t value asm("a1");
@@ -272,6 +273,8 @@ static inline void c_sd(uintptr_t addr, uint64_t value){
         :: "r"(_value), "r"(_addr): "memory"
     );
 }
+
+#endif
 
 static inline uint32_t lr_w(uintptr_t addr){
     uint32_t value;

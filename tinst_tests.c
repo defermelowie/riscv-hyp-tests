@@ -120,7 +120,8 @@ bool tinst_tests(){
         excpt.cause == CAUSE_SPF &&
         TINST_CHECK(TINST_STORE)
     );
-
+    
+    #ifdef __riscv_compressed
     TEST_SETUP_EXCEPT();
     value = c_lw(vaddr_f);
     TEST_ASSERT("correct tinst when executing a c.lw which results in a lpf",
@@ -152,7 +153,7 @@ bool tinst_tests(){
         excpt.cause == CAUSE_SPF &&
         TINST_CHECK_COMPRESSED(TINST_STORE)
     );
-
+    #endif
     TEST_SETUP_EXCEPT();
     value = lr_w(vaddr_f);
     TEST_ASSERT("correct tinst when executing a lr.w which results in a lpf",
