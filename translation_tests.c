@@ -38,32 +38,37 @@ bool two_stage_translation(){
     goto_priv(PRIV_VS);
     vspt_init();
 
-    bool check1 = read64(vaddr1) == 0x11;
-    bool check2 = read64(vaddr2) == 0x22;
-    TEST_ASSERT("vs gets right values", check1 && check2);
+    uint64_t data1 = read64(vaddr1);
+    uint64_t data2 = read64(vaddr2);
+    bool check1 = data1 == 0x11;
+    bool check2 = data2 == 0x22;
+    TEST_ASSERT("vs gets right values", check1 && check2, "0x%lx, 0x%lx", data1, data2);
     
     goto_priv(PRIV_HS);
     hpt_switch();
     hfence();
     goto_priv(PRIV_VS);
-    check1 = read64(vaddr1) == 0x22;
-    check2 = read64(vaddr2) == 0x11;   
+    data1 = read64(vaddr1);
+    data2 = read64(vaddr2);
+    check1 = data1 == 0x22;
+    check2 = data2 == 0x11;   
     // INFO("0%lx 0x%lx", read64(vaddr1), read64(vaddr2));
-    TEST_ASSERT("vs gets right values after changing 2nd stage pt", check1 && check2);
+    TEST_ASSERT("vs gets right values after changing 2nd stage pt", check1 && check2, "0x%lx, 0x%lx", data1, data2);
 
     vspt_switch();
     sfence();
-    check1 = read64(vaddr1) == 0x11;
-    check2 = read64(vaddr2) == 0x22;   
-    TEST_ASSERT("vs gets right values after changing 1st stage pt", check1 && check2);
+    data1 = read64(vaddr1);
+    data2 = read64(vaddr2);
+    check1 = data1 == 0x11;
+    check2 = data2 == 0x22;   
+    TEST_ASSERT("vs gets right values after changing 1st stage pt", check1 && check2, "0x%lx, 0x%lx", data1, data2);
 
     goto_priv(PRIV_M); 
     CSRS(medeleg, 1ull << CAUSE_LGPF);
     goto_priv(PRIV_VS);
     TEST_SETUP_EXCEPT();
     read64(vs_page_base(VSRWX_GI));    
-    TEST_ASSERT(
-        "load guest page fault on unmapped address", 
+    TEST_ASSERT("load guest page fault on unmapped address", 
         excpt.triggered == true && 
         excpt.cause == CAUSE_LGPF &&
         excpt.tval2 == (vs_page_base(VSRWX_GI) >> 2) &&
