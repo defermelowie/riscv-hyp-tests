@@ -10,4 +10,4 @@ export PLAT=sail LOG_LEVEL=LOG_WARNING;
 make
 
 # Run tests
-$csim --ram-size 256 -t log/sail_term.log build/sail/rvh_test.elf > log/sail_trace.log
+$csim --ram-size 256 -t log/sail_term.log --enable-dirty-update --mtval-has-illegal-inst-bits --xtinst-has-transformed-inst build/sail/rvh_test.elf > log/sail_trace.log
