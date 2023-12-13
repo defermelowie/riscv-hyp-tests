@@ -162,6 +162,11 @@ bool tinst_tests(){
         TINST_CHECK(TINST_AMO)
     );
 
+    /* 
+     * SAIL FAILS
+     * BUG: Does not triger SAMO-page-fault in sail model
+     */
+
     TEST_SETUP_EXCEPT();
     value = sc_w(vaddr_f, value);
     TEST_ASSERT("correct tinst when executing a sc.w which results in a spf",

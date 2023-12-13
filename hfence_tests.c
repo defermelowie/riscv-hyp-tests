@@ -40,7 +40,13 @@ bool hfence_test() {
     cond &= hlvd(vaddr) == val;
     TEST_ASSERT("hs sfence doest not affect guest level tlb entries", cond);
 
-    //////////////////////////////////////////////////////////////////////  
+    ////////////////////////////////////////////////////////////////////// 
+    
+    /*
+     * SAIL FAILS:
+     *   Since the TLB only has one entry, loading HS-code causes the TLB
+     *   to flush the data page entry
+     */
 
     goto_priv(PRIV_HS);
     hspt_init();
