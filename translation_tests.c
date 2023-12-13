@@ -297,7 +297,7 @@ bool m_and_hs_using_vs_access(){
      * SAIL FAILS
      *   Since VS-stage AT does not complete due to insufficient permissions
      *   the virtual address is reported into tval and GVA is set according.
-     * BUG: What should be reported to tval is GVA should be 0b0
+     * BUG: What should be reported to tval if GVA should be 0b0
      */
     TEST_SETUP_EXCEPT();
     val = hlvxwu(vs_page_base(VSRW_GURWX));
