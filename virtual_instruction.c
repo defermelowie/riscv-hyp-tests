@@ -95,7 +95,7 @@ bool virtual_instruction() {
     TEST_ASSERT("vs access to time casuses virtual instruction exception",
         excpt.triggered == true &&
         excpt.cause == CAUSE_ILI
-    );
+    ,"Cause: %d", excpt.triggered ? excpt.cause : -1);
 
     goto_priv(PRIV_M);
     CSRS(mcounteren, HCOUNTEREN_TM);
@@ -104,9 +104,8 @@ bool virtual_instruction() {
     TEST_SETUP_EXCEPT();
     time = CSRR(time);
     TEST_ASSERT("vs access to time casuses succsseful with mcounteren.tm and hcounteren.tm set",
-        excpt.triggered == true &&
-        excpt.cause == CAUSE_ILI
-    );
+        excpt.triggered == false
+    ,"Cause: %d", excpt.triggered ? excpt.cause : -1);
 
     //////////////////////////////////////////////////////////////////////
 
@@ -120,7 +119,7 @@ bool virtual_instruction() {
     TEST_ASSERT("vs access to cycle casuses virtual instruction exception",
         excpt.triggered == true &&
         excpt.cause == CAUSE_ILI
-    );
+    ,"Cause: %d", excpt.triggered ? excpt.cause : -1);
 
     goto_priv(PRIV_M);
     CSRS(mcounteren, HCOUNTEREN_CY);
@@ -132,7 +131,7 @@ bool virtual_instruction() {
     TEST_ASSERT("vs access to cycle casuses virtual instruction exception when mcounteren.cy set",
         excpt.triggered == true &&
         excpt.cause == CAUSE_VRTI
-    );
+    ,"Cause: %d", excpt.triggered ? excpt.cause : -1);
 
 
     goto_priv(PRIV_M);
