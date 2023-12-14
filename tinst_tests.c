@@ -164,7 +164,8 @@ bool tinst_tests(){
 
     /* 
      * SAIL FAILS
-     * BUG: Does not triger SAMO-page-fault in sail model
+     * BUG: Does not trigger SAMO-page-fault in sail model since check for 
+     *      reservation set happens before page walk and causes early exit
      */
 
     TEST_SETUP_EXCEPT();
