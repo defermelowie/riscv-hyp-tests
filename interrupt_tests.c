@@ -75,7 +75,8 @@ bool interrupt_tests(){
     goto_priv(PRIV_VS);
     //CSRS(sstatus, SSTATUS_SIE_BIT);
     TEST_ASSERT("vs sw irq with no delegation", 
-        excpt.triggered && excpt.cause == CAUSE_VSSI && excpt.priv == PRIV_HS);
+        excpt.triggered && excpt.cause == CAUSE_VSSI && excpt.priv == PRIV_HS,
+        "Triggered: %s, cause: 0x%x, priv: %d", excpt.triggered ? "true" : "false", excpt.cause, excpt.priv);
    
     /**
      * Test trigerring VSSI and delegating it. Should trap to VS with cause SSI.
@@ -89,7 +90,8 @@ bool interrupt_tests(){
     CSRS(sie, 0x2);
     CSRS(sstatus, 0x2);
     TEST_ASSERT("vs sw irq with delegation", 
-        excpt.triggered && excpt.cause == CAUSE_SSI && excpt.priv == PRIV_VS);
+        excpt.triggered && excpt.cause == CAUSE_SSI && excpt.priv == PRIV_VS,
+        "Triggered: %s, cause: 0x%x, priv: %d", excpt.triggered ? "true" : "false", excpt.cause, excpt.priv);
 
     TEST_END();
 }
