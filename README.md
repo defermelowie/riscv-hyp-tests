@@ -9,14 +9,14 @@ We assume that the RISC-V toolchain is installed and is added to the PATH.
 
 ### Target platform
 
-The target platform on which the test will run should be specified by setting the PLAT environment variables. And the platforms that are currently supported are shown in the table below:
+The target platform on which the test will run should be specified by setting the PLAT environment variable. Platforms that are currently supported are listed in the table below:
 
-| Platform | ${PLAT} Parameters |
-| - | - |
-| *QEMU* | `qemu` |
-| *Rocket Chip Emulator* | `rocket_emul` |
-| *Rocket Chip FPGA* | `rocket_fpga` |
-| *Spike Emulator* | `spike` |
+| Platform               | `${target_platform}` | Example usage
+|:-----------------------|:---------------------|:------------------
+| *QEMU*                 | `qemu`               | [`run_on_qemu.sh`](./scripts/run_on_qemu.sh)
+| *Rocket Chip Emulator* | `rocket_emul`        | /
+| *Rocket Chip FPGA*     | `rocket_fpga`        | /
+| *Spike Emulator*       | `spike`              | [`run_on_spike.sh`](./scripts/run_on_spike.sh)
 
 ### Output level
 
